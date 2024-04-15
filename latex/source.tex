@@ -259,6 +259,8 @@ $stime -> Scaled Time Real
     endcase
 end  
 endmodule
+
+assign out = out_next; // For fast changes
 \end{minted}
 \end{tiny}
 \columnbreak
@@ -304,6 +306,7 @@ bne rs1, rs2, IMM
 \begin{tabular}{l}
     Address\_size = N\_tag\_bits + N\_index\_bits + N\_word\_offset\_bits + Byte\_offset;\\
     $N\_blocks\_in\_cache = 2^{N\_index\_bits}$;\\
+    $N\_word\_in\_block = log_2(words)$;\\
     Direct\_memory → associativity = 1;\\
     Cache\_size = N\_blocks\_in\_cache * associativity * (N\_bits\_in\_word * N\_words\_in\_block + N\_tag\_bits + Valid\_bit + dirty\_bit);\\
 \end{tabular}
@@ -311,5 +314,53 @@ bne rs1, rs2, IMM
 \includegraphics[scale=0.6]{floating.jpg}
 \includegraphics[scale=0.3]{direct-two-ass.PNG}
 \includegraphics[scale=0.3]{offset.PNG}
+\multicols {3}
+\begin{tiny}
+\begin{minted}{verilog}
+`timescale 1ns / 1ps
+module custom_counter_v1_0_tb();
+  //stuff you need
+   reg arstn = 1'b0;
+   reg [2:0] write_prot = 3'd0;    //type of write(leave at 0)
+   reg write_addr_valid = 1'b0;    //master indicating address is valid
+   custom_counter_v1_0 #(
+       .number_of_clk_cycles(10)    //custom wires
+   ) custom_counter_v1_0_inst (
+   // Define wires
+       .leds(leds),
+   );
+   always 
+   #5 aclk <= ~aclk;
+   initial 
+   begin
+   arstn = 0;
+   #20 arstn = 1;
+   axi_write(32'd4,1'b1);
+   axi_read(32'd8, output_data);
+   #200
+   $finish; 
+   end
+   // TASKS
+   task axi_read;
+   input [31:0] addr; //Defines here
+   output reg [31:0] data;
+   begin
+       #3 read_addr <= addr; //puts adress on the bus
+       read_addr_valid <= 1'b1; //indicating address is valid
+       read_data_ready <= 1'b1; //indicting ready for a response
+       wait(read_addr_ready); //wait till slave is ready to read the address
+       @(posedge aclk); //handshake occurs
+       read_addr_valid <= 1'b0;
+       wait(read_data_valid);
+       @(posedge aclk);
+       data <=read_data;
+       @(posedge aclk);
+       read_data_ready <= 1'b0;
+   end
+   endtask
+endmodule
+    \end{minted}
+\end{tiny}
+
 
 \end{document}

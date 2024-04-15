@@ -1,0 +1,44 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+no}{`timescale}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{n}{ns}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{n}{ps}
+\PYG{k}{module}\PYG{+w}{ }\PYG{n}{custom\PYGZus{}counter\PYGZus{}v1\PYGZus{}0\PYGZus{}tb}\PYG{p}{();}
+\PYG{+w}{  }\PYG{c+c1}{//stuff you need}
+\PYG{+w}{   }\PYG{k+kt}{reg}\PYG{+w}{ }\PYG{n}{arstn}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{l+m+mb}{\PYGZsq{}b0}\PYG{p}{;}
+\PYG{+w}{   }\PYG{k+kt}{reg}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mh}{2}\PYG{o}{:}\PYG{l+m+mh}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{n}{write\PYGZus{}prot}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{3}\PYG{l+m+mi}{\PYGZsq{}d0}\PYG{p}{;}\PYG{+w}{    }\PYG{c+c1}{//type of write(leave at 0)}
+\PYG{+w}{   }\PYG{k+kt}{reg}\PYG{+w}{ }\PYG{n}{write\PYGZus{}addr\PYGZus{}valid}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{l+m+mb}{\PYGZsq{}b0}\PYG{p}{;}\PYG{+w}{    }\PYG{c+c1}{//master indicating address is valid}
+\PYG{+w}{   }\PYG{n}{custom\PYGZus{}counter\PYGZus{}v1\PYGZus{}0}\PYG{+w}{ }\PYG{p}{\PYGZsh{}(}
+\PYG{+w}{       }\PYG{p}{.}\PYG{n}{number\PYGZus{}of\PYGZus{}clk\PYGZus{}cycles}\PYG{p}{(}\PYG{l+m+mh}{10}\PYG{p}{)}\PYG{+w}{    }\PYG{c+c1}{//custom wires}
+\PYG{+w}{   }\PYG{p}{)}\PYG{+w}{ }\PYG{n}{custom\PYGZus{}counter\PYGZus{}v1\PYGZus{}0\PYGZus{}inst}\PYG{+w}{ }\PYG{p}{(}
+\PYG{+w}{   }\PYG{c+c1}{// Define wires}
+\PYG{+w}{       }\PYG{p}{.}\PYG{n}{leds}\PYG{p}{(}\PYG{n}{leds}\PYG{p}{),}
+\PYG{+w}{   }\PYG{p}{);}
+\PYG{+w}{   }\PYG{k}{always}
+\PYG{+w}{   }\PYG{p}{\PYGZsh{}}\PYG{l+m+mh}{5}\PYG{+w}{ }\PYG{n}{aclk}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{n}{aclk}\PYG{p}{;}
+\PYG{+w}{   }\PYG{k}{initial}
+\PYG{+w}{   }\PYG{k}{begin}
+\PYG{+w}{   }\PYG{n}{arstn}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0}\PYG{p}{;}
+\PYG{+w}{   }\PYG{p}{\PYGZsh{}}\PYG{l+m+mh}{20}\PYG{+w}{ }\PYG{n}{arstn}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{p}{;}
+\PYG{+w}{   }\PYG{n}{axi\PYGZus{}write}\PYG{p}{(}\PYG{l+m+mh}{32}\PYG{l+m+mi}{\PYGZsq{}d4}\PYG{p}{,}\PYG{l+m+mh}{1}\PYG{l+m+mb}{\PYGZsq{}b1}\PYG{p}{);}
+\PYG{+w}{   }\PYG{n}{axi\PYGZus{}read}\PYG{p}{(}\PYG{l+m+mh}{32}\PYG{l+m+mi}{\PYGZsq{}d8}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{output\PYGZus{}data}\PYG{p}{);}
+\PYG{+w}{   }\PYG{p}{\PYGZsh{}}\PYG{l+m+mh}{200}
+\PYG{+w}{   }\PYG{n+nb}{\PYGZdl{}finish}\PYG{p}{;}
+\PYG{+w}{   }\PYG{k}{end}
+\PYG{+w}{   }\PYG{c+c1}{// TASKS}
+\PYG{+w}{   }\PYG{k}{task}\PYG{+w}{ }\PYG{n}{axi\PYGZus{}read}\PYG{p}{;}
+\PYG{+w}{   }\PYG{k}{input}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mh}{31}\PYG{o}{:}\PYG{l+m+mh}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{n}{addr}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{//Defines here}
+\PYG{+w}{   }\PYG{k}{output}\PYG{+w}{ }\PYG{k+kt}{reg}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mh}{31}\PYG{o}{:}\PYG{l+m+mh}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{n}{data}\PYG{p}{;}
+\PYG{+w}{   }\PYG{k}{begin}
+\PYG{+w}{       }\PYG{p}{\PYGZsh{}}\PYG{l+m+mh}{3}\PYG{+w}{ }\PYG{n}{read\PYGZus{}addr}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{addr}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{//puts adress on the bus}
+\PYG{+w}{       }\PYG{n}{read\PYGZus{}addr\PYGZus{}valid}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{l+m+mb}{\PYGZsq{}b1}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{//indicating address is valid}
+\PYG{+w}{       }\PYG{n}{read\PYGZus{}data\PYGZus{}ready}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{l+m+mb}{\PYGZsq{}b1}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{//indicting ready for a response}
+\PYG{+w}{       }\PYG{k}{wait}\PYG{p}{(}\PYG{n}{read\PYGZus{}addr\PYGZus{}ready}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{//wait till slave is ready to read the address}
+\PYG{+w}{       }\PYG{p}{@(}\PYG{k}{posedge}\PYG{+w}{ }\PYG{n}{aclk}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{//handshake occurs}
+\PYG{+w}{       }\PYG{n}{read\PYGZus{}addr\PYGZus{}valid}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{l+m+mb}{\PYGZsq{}b0}\PYG{p}{;}
+\PYG{+w}{       }\PYG{k}{wait}\PYG{p}{(}\PYG{n}{read\PYGZus{}data\PYGZus{}valid}\PYG{p}{);}
+\PYG{+w}{       }\PYG{p}{@(}\PYG{k}{posedge}\PYG{+w}{ }\PYG{n}{aclk}\PYG{p}{);}
+\PYG{+w}{       }\PYG{n}{data}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{n}{read\PYGZus{}data}\PYG{p}{;}
+\PYG{+w}{       }\PYG{p}{@(}\PYG{k}{posedge}\PYG{+w}{ }\PYG{n}{aclk}\PYG{p}{);}
+\PYG{+w}{       }\PYG{n}{read\PYGZus{}data\PYGZus{}ready}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{l+m+mb}{\PYGZsq{}b0}\PYG{p}{;}
+\PYG{+w}{   }\PYG{k}{end}
+\PYG{+w}{   }\PYG{k}{endtask}
+\PYG{k}{endmodule}
+\end{Verbatim}
