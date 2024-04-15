@@ -1,0 +1,60 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{k}{always}\PYG{+w}{ }\PYG{p}{@(}\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{    }\PYG{k}{case}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{state\PYGZus{}curr}\PYG{p}{)}
+\PYG{+w}{        }\PYG{n+nl}{STAT1:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{            }\PYG{k}{case}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{coins}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n+nl}{COIN1:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT2}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{n+nl}{COIN2:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT0}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{k}{default}\PYG{o}{:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT1}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{k}{endcase}
+\PYG{+w}{        }\PYG{k}{end}
+
+\PYG{+w}{        }\PYG{n+nl}{STAT2:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{            }\PYG{k}{case}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{coins}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n+nl}{COIN1:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT0}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{n+nl}{COIN2:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT1}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{1}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{k}{default}\PYG{o}{:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT2}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{k}{endcase}
+\PYG{+w}{        }\PYG{k}{end}
+
+\PYG{+w}{        }\PYG{c+c1}{//State 0}
+\PYG{+w}{        }\PYG{k}{default}\PYG{o}{:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{            }\PYG{k}{case}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{coins}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n+nl}{COIN1:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT1}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{n+nl}{COIN2:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT2}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{k}{default}\PYG{o}{:}\PYG{+w}{ }\PYG{k}{begin}
+\PYG{+w}{                }\PYG{n}{state\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STAT0}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{coffee\PYGZus{}next}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{end}
+\PYG{+w}{            }\PYG{k}{endcase}
+\PYG{+w}{        }\PYG{k}{end}
+\PYG{+w}{    }\PYG{k}{endcase}
+\PYG{k}{end}
+\PYG{k}{endmodule}
+
+\PYG{k}{assign}\PYG{+w}{ }\PYG{n}{out}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{out\PYGZus{}next}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// For fast changes}
+\end{Verbatim}
