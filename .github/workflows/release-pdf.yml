@@ -25,7 +25,7 @@ jobs:
       - name: get TexLive
         uses: xu-cheng/latex-action@3.2.0
         with:
-          docker_image: ghcr.io/xu-cheng/texlive-small:latest
+          docker_image: ghcr.io/xu-cheng/texlive-full:latest
           root_file: source.tex
           working_directory: latex
           latexmk_shell_escape: true
