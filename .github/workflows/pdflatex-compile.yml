@@ -19,11 +19,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install Pygments
 
-      - uses: ncipollo/release-action@v1
+      - name: get TexLive
+        uses: xu-cheng/latex-action@3.2.0
         with:
-          artifacts: "latex/source.tex"
-          tag: main
-          makeLatest: true
+          root_file: source.tex
+          working_directory: latex
+          latexmk_shell_escape: true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source-pdf
+          path: latex/source.pdf
           
           
   
