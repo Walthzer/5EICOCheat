@@ -3,6 +3,8 @@ on: [push]
 jobs:
   compile-with-pdflatex:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: checkout repo content
         uses: actions/checkout@v2 # checkout the repository content
@@ -16,19 +18,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install Pygments
-      
-      - name: get TexLive
-        uses: xu-cheng/latex-action@3.2.0
-        with:
-          root_file: source.tex
-          working_directory: latex
-          latexmk_shell_escape: true
 
       - name: Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: latex/source.pdf
+          files: latex/source.tex
           
           
   
